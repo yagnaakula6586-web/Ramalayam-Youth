@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { EventAlbum, MediaItem, PlatformStats, UploadBatchResponse } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+let rawBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+if (rawBaseUrl.endsWith('/')) {
+  rawBaseUrl = rawBaseUrl.slice(0, -1);
+}
+if (!rawBaseUrl.endsWith('/api')) {
+  rawBaseUrl = `${rawBaseUrl}/api`;
+}
+const API_BASE_URL = rawBaseUrl;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
