@@ -96,12 +96,18 @@ export function createGoogleDriveClient() {
   }
 
   if (serviceAccountEmail && privateKey) {
-    privateKey = privateKey.replace(/\\n/g, '\n');
+    let keyStr = privateKey;
+    if (keyStr.startsWith('"') && keyStr.endsWith('"')) {
+      try {
+        keyStr = JSON.parse(keyStr);
+      } catch (e) {}
+    }
+    keyStr = keyStr.replace(/\\n/g, '\n');
 
     const auth = new google.auth.JWT({
       email: serviceAccountEmail,
-      key: privateKey,
-      scopes: ['https://www.googleapis.com/auth/drive.file'],
+      key: keyStr,
+      scopes: ['https://www.googleapis.com/auth/drive'],
     });
 
     return google.drive({ version: 'v3', auth });
