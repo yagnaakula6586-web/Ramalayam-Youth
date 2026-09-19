@@ -42,8 +42,8 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="space-y-3 max-w-2xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-slate-900 leading-tight">
-            Welcome to <span className="text-sky-600">RAMALAYAM YOUTH</span>
+          <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-black leading-tight">
+            Welcome to <span className="text-black">RAMALAYAM YOUTH</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">

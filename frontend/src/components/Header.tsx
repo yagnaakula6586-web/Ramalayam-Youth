@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-lg sm:text-xl font-extrabold font-display tracking-tight text-slate-900">
+              <span className="text-lg sm:text-xl font-extrabold font-display tracking-tight text-black">
                 RAMALAYAM YOUTH
               </span>
               <span className="text-[10px] font-bold text-sky-700 bg-sky-50 border border-sky-200 px-1.5 py-0.5 rounded-full uppercase">
