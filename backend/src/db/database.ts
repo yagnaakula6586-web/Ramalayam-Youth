@@ -179,8 +179,8 @@ export function seedDefaultData() {
       location: 'Ramayaml Youth Center, Vissannapeta',
       drive_folder_id: '1k2JbNaa_AyWhc_luXEVHnrNG-uvmVYlI',
       drive_folder_url: 'https://drive.google.com/drive/folders/1k2JbNaa_AyWhc_luXEVHnrNG-uvmVYlI',
-      photo_count: 35,
-      video_count: 6,
+      photo_count: 0,
+      video_count: 0,
       thumbnail_url: '/images/ganesha_event_profile.png',
     },
     {
@@ -192,8 +192,8 @@ export function seedDefaultData() {
       location: 'Vissannapeta Village Procession Route',
       drive_folder_id: '1-leSPBd1dPNMt21W5b7AvE6dZEi5Ewe2',
       drive_folder_url: 'https://drive.google.com/drive/folders/1-leSPBd1dPNMt21W5b7AvE6dZEi5Ewe2',
-      photo_count: 48,
-      video_count: 12,
+      photo_count: 0,
+      video_count: 0,
       thumbnail_url: '/images/ganesha_event_profile.png',
     },
   ];
@@ -341,15 +341,16 @@ export function getMediaItemsByEventId(eventId: string): MediaItemRecord[] {
 
 export function getPlatformStats() {
   if (sqliteDb) {
-    const albumCount = (sqliteDb.prepare('SELECT COUNT(*) as count FROM event_albums').get() as any).count;
-    const mediaRow = sqliteDb.prepare('SELECT SUM(photo_count) as photos, SUM(video_count) as videos FROM event_albums').get() as any;
-    
+    const albumCount = (sqliteDb.prepare('SELECT COUNT(*) as count FROM event_albums').get() as any)?.count || 0;
+    const photoCount = (sqliteDb.prepare("SELECT COUNT(*) as count FROM media_items WHERE media_type = 'photo'").get() as any)?.count || 0;
+    const videoCount = (sqliteDb.prepare("SELECT COUNT(*) as count FROM media_items WHERE media_type = 'video'").get() as any)?.count || 0;
+
     return {
-      totalAlbums: albumCount || 2,
-      totalPhotos: mediaRow?.photos || 83,
-      totalVideos: mediaRow?.videos || 18,
+      totalAlbums: albumCount,
+      totalPhotos: photoCount,
+      totalVideos: videoCount,
     };
   }
 
-  return { totalAlbums: 2, totalPhotos: 83, totalVideos: 18 };
+  return { totalAlbums: 2, totalPhotos: 0, totalVideos: 0 };
 }
