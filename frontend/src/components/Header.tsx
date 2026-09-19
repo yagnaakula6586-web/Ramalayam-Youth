@@ -20,10 +20,12 @@ export const Header: React.FC = () => {
         
         {/* Logo and Brand Name */}
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-sky-600 via-blue-600 to-amber-500 p-0.5 shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-sky-600 rounded-[10px] flex items-center justify-center text-white">
-              <Camera className="w-5 h-5 sm:w-6 sm:h-6" />
-            </div>
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-amber-500 via-sky-600 to-amber-600 p-0.5 shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform overflow-hidden">
+            <img
+              src="/images/ganesha_event_profile.png"
+              alt="Ramalayam Youth Logo"
+              className="w-full h-full object-cover rounded-[10px]"
+            />
           </div>
           <div>
             <div className="flex items-center gap-1.5">

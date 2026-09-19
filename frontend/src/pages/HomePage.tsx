@@ -34,8 +34,19 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-8 sm:space-y-12 pb-12">
-      {/* Hero Welcome Banner */}
+      {/* Hero Welcome Banner with Ganesha Idol Image Logo */}
       <section className="bg-gradient-to-b from-sky-500/10 via-sky-500/5 to-transparent pt-8 pb-12 px-4 rounded-3xl text-center space-y-6 max-w-4xl mx-auto border border-sky-100">
+        <div className="flex justify-center mb-2">
+          <div className="relative group">
+            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-amber-500 via-sky-600 to-amber-600 blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+            <img
+              src="/images/ganesha_event_profile.png"
+              alt="Ramalayam Youth Lord Ganesha"
+              className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-white shadow-xl"
+            />
+          </div>
+        </div>
+
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 border border-sky-200 text-sky-800 text-xs font-bold shadow-sm">
           <Sparkles className="w-3.5 h-3.5 text-sky-600" />
           <span>RAMALAYAM YOUTH Vissannapeta</span>
@@ -47,7 +58,7 @@ export const HomePage: React.FC = () => {
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
-            Share your memorable moments with Ramalayam Youth. Upload photos and videos, explore past events, and celebrate our community memories together.
+            Share your memorable moments with Ramalayam Youth. Upload photos and videos for <strong className="text-sky-800">Annadanam Event 2026</strong> & <strong className="text-amber-800">Uragimpu Event 2026 (ఉరేగింపు)</strong> directly to Google Drive.
           </p>
         </div>
 
