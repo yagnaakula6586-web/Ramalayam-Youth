@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import photoRoutes from './routes/photoRoutes';
@@ -7,7 +8,9 @@ import { errorHandler } from './middleware/errorHandler';
 import { getGoogleDriveConfig } from './config/googleAuth';
 import { initDatabase } from './db/database';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'backend/.env') });
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -77,9 +80,10 @@ async function startServer() {
   app.listen(PORT, () => {
     const config = getGoogleDriveConfig();
     console.log(`\n======================================================`);
-    console.log(`🚀 RAMAYAML YOUTH Server listening on port ${PORT}`);
+    console.log(`🚀 RAMALAYAM YOUTH Server listening on port ${PORT}`);
     console.log(`🌐 API Base: http://localhost:${PORT}/api`);
     console.log(`📁 Destination Folder ID: ${config.folderId ? config.folderId : 'Not Configured'}`);
+    console.log(`🔑 Client ID: ${process.env.GOOGLE_CLIENT_ID ? 'LOADED ✅' : 'MISSING ❌'}`);
     console.log(`🔐 Auth Mode: ${config.authMethod}`);
     console.log(`======================================================\n`);
   });

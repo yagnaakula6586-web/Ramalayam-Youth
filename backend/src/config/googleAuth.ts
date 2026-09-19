@@ -1,7 +1,11 @@
 import { google } from 'googleapis';
+import path from 'path';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Load .env explicitly from backend directory regardless of working directory
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'backend/.env') });
 
 export interface GoogleAuthConfig {
   folderId: string;
@@ -40,7 +44,7 @@ export function getAuthUrl(customRedirectUri?: string): string {
   const redirectUri = customRedirectUri || process.env.GOOGLE_REDIRECT_URI || 'http://localhost:5001/api/auth/google/callback';
 
   if (!clientId || !clientSecret) {
-    throw new Error('GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be configured in environment variables.');
+    throw new Error(`GOOGLE_CLIENT_ID (${clientId ? 'FOUND' : 'MISSING'}) and GOOGLE_CLIENT_SECRET (${clientSecret ? 'FOUND' : 'MISSING'}) must be configured in environment variables.`);
   }
 
   const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
@@ -49,6 +53,7 @@ export function getAuthUrl(customRedirectUri?: string): string {
     access_type: 'offline',
     prompt: 'consent',
     scope: [
+      'https://www.googleapis.com/auth/drive',
       'https://www.googleapis.com/auth/drive.file',
       'https://www.googleapis.com/auth/userinfo.email',
     ],
@@ -76,7 +81,6 @@ export function createGoogleDriveClient() {
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
   let privateKey = process.env.GOOGLE_PRIVATE_KEY;
 
-  // 1. Try OAuth2 Refresh Token (Recommended for personal Google Drive destination folders)
   if (clientId && clientSecret && refreshToken) {
     const oauth2Client = new google.auth.OAuth2(
       clientId,
@@ -91,7 +95,6 @@ export function createGoogleDriveClient() {
     return google.drive({ version: 'v3', auth: oauth2Client });
   }
 
-  // 2. Try Service Account
   if (serviceAccountEmail && privateKey) {
     privateKey = privateKey.replace(/\\n/g, '\n');
 
